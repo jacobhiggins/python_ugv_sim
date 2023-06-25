@@ -20,4 +20,4 @@ This launches a pygame display with a [differential drive robot](https://en.wiki
  - UP/DOWN: Positive/negative forward velocity
  - LEFT/RIGHT: Pivot left/right
 
- ![Demo of the simulator](https://github.com/jacobhiggins/python_ugv_sim/tree/main/media/demo.gif)
+ ![Demo of the simulator](./media/demo.gif)
