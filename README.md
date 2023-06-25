@@ -1,4 +1,4 @@
-# Python UGV Simulator
+# Simple Python UGV Simulator
 A simple simulator for a 2D ground robot.
 
 Powered by [pygame](https://www.pygame.org/news), this simulator is meant to be a lightweight package to quickly start build your own project.
@@ -19,3 +19,5 @@ python main.py
 This launches a pygame display with a [differential drive robot](https://en.wikipedia.org/wiki/Differential_wheeled_robot) in the lower-left corner. Use the keyboard to drive the robot:
  - UP/DOWN: Positive/negative forward velocity
  - LEFT/RIGHT: Pivot left/right
+
+ ![Demo of the simulator](https://github.com/jacobhiggins/python_ugv_sim/tree/main/media/demo.gif)
