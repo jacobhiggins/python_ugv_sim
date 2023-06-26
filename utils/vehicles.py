@@ -14,29 +14,6 @@ class Robot:
     width = 0.3
     def __init__(self):
         pass
-    def update_u(self,u,key_event):
-        '''
-        Update controls
-        '''
-        if key_event.type==pygame.KEYDOWN:
-            if key_event.key==pygame.K_LEFT:
-                u[1] = 1
-            elif key_event.key==pygame.K_RIGHT:
-                u[1] = -1
-            if key_event.key==pygame.K_UP:
-                u[0] = 1
-            elif key_event.key==pygame.K_DOWN:
-                u[0] = -1
-        if key_event.type==pygame.KEYUP:
-            if key_event.key==pygame.K_LEFT:
-                u[1] = 0
-            elif key_event.key==pygame.K_RIGHT:
-                u[1] = 0
-            if key_event.key==pygame.K_UP:
-                u[0] = 0
-            elif key_event.key==pygame.K_DOWN:
-                u[0] = 0
-        return u
     def get_corners(self):
         '''
         Return robot polygon corners
@@ -76,8 +53,8 @@ class DifferentialDrive(Robot):
         xdot[1] = v*sin(theta)
         xdot[2] = omega
     '''
-    max_v = 1.0
-    max_omega = 1.0
+    max_v = 2.0
+    max_omega = 2.0
     def __init__(self,x_init):
         Robot.__init__(self)
         self.set_state(x_init)
@@ -104,33 +81,26 @@ class DifferentialDrive(Robot):
         return self.x
     def get_position(self):
         return self.x[0:2]
-
-# if __name__=='__main__':
-#     '''
-#     Testing vehicle classes
-#     '''
-
-#     # Initialize pygame
-#     pygame.init()
-
-#     # Initialize robot and time step
-#     x_init = np.array([1,1,np.pi/2])
-#     robot = DifferentialDrive(x_init)
-#     dt = 0.01
-
-#     # Initialize and display environment
-#     env = environment.Environment(map_path="./maps/map_blank.png")
-
-#     running = True
-#     u = np.array([0.,0.]) # Controls
-#     while running:
-#         for event in pygame.event.get():
-#             if event.type==pygame.QUIT:
-#                 running = False
-#             u = robot.update_u(u,event) if event.type==pygame.KEYUP or event.type==pygame.KEYDOWN else u # Update controls based on key states
-#         robot.move_step(u,dt) # Integrate EOMs forward, i.e., move robot
-#         env.show_map() # Re-blit map
-#         env.show_robot(robot) # Re-blit robot
-#         pygame.display.update() # Update display
-
-    
+    def update_u(self,u,key_event):
+        '''
+        Update controls
+        '''
+        if key_event.type==pygame.KEYDOWN:
+            if key_event.key==pygame.K_LEFT:
+                u[1] = self.max_omega
+            elif key_event.key==pygame.K_RIGHT:
+                u[1] = -1*self.max_omega
+            if key_event.key==pygame.K_UP:
+                u[0] = self.max_v
+            elif key_event.key==pygame.K_DOWN:
+                u[0] = -1*self.max_v
+        if key_event.type==pygame.KEYUP:
+            if key_event.key==pygame.K_LEFT:
+                u[1] = 0
+            elif key_event.key==pygame.K_RIGHT:
+                u[1] = 0
+            if key_event.key==pygame.K_UP:
+                u[0] = 0
+            elif key_event.key==pygame.K_DOWN:
+                u[0] = 0
+        return u
