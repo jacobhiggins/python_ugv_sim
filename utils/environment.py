@@ -40,6 +40,9 @@ class Environment:
         pixelx = int(position[0]/self.METER_PER_PIXEL)
         pixely = int(self.map.get_height() - position[1]/self.METER_PER_PIXEL)
         return np.array([pixelx,pixely])
+    
+    def dist2pixellen(self,dist):
+        return int(dist/self.METER_PER_PIXEL)
 
     def show_map(self):
         '''
@@ -56,6 +59,9 @@ class Environment:
         # pygame.draw.polygon(self.map,self.grey,pixels) # filled in polygon, not anti-aliased
         pygame.gfxdraw.aapolygon(self.map,pixels,self.dark_grey) # Anti-aliased outline
         pygame.gfxdraw.filled_polygon(self.map,pixels,self.grey)
+
+    def get_pygame_surface(self):
+        return self.map
 
 if __name__=='__main__':
     '''
